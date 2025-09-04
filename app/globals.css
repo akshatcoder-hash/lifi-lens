@@ -1,0 +1,206 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer utilities {
+  /* Custom animations for professional developer UI */
+  @keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    10%, 30%, 50%, 70%, 90% { transform: translateX(-2px); }
+    20%, 40%, 60%, 80% { transform: translateX(2px); }
+  }
+  
+  .animate-shake {
+    animation: shake 0.6s ease-in-out;
+  }
+  
+  @keyframes glow {
+    0%, 100% { box-shadow: 0 0 10px hsl(var(--lifi-primary) / 0.3); }
+    50% { box-shadow: 0 0 20px hsl(var(--lifi-primary) / 0.6), 0 0 30px hsl(var(--lifi-primary) / 0.3); }
+  }
+  
+  .animate-glow {
+    animation: glow 2s ease-in-out infinite;
+  }
+  
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  .animate-fadeInUp {
+    animation: fadeInUp 0.3s ease-out;
+  }
+  
+  @keyframes blink {
+    0%, 50% { opacity: 1; }
+    51%, 100% { opacity: 0; }
+  }
+  
+  .animate-blink {
+    animation: blink 1s infinite;
+  }
+  
+  /* Terminal-specific utilities */
+  .terminal-window {
+    background: hsl(var(--terminal-bg));
+    color: hsl(var(--terminal-fg));
+    font-family: 'JetBrains Mono', 'Fira Code', 'Monaco', 'Courier New', monospace;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+  }
+  
+  .terminal-header {
+    background: linear-gradient(135deg, rgba(255, 95, 109, 0.2), rgba(255, 195, 113, 0.2));
+    backdrop-filter: blur(10px);
+    padding: 12px 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  
+  .terminal-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+  }
+  
+  .terminal-dot-red { background: #ff5f56; }
+  .terminal-dot-yellow { background: #ffbd2e; }
+  .terminal-dot-green { background: #27ca3f; }
+  
+  .terminal-content {
+    padding: 20px;
+    min-height: 200px;
+    font-size: 14px;
+    line-height: 1.5;
+  }
+  
+  .text-terminal-green { color: hsl(var(--terminal-green)); }
+  .text-terminal-red { color: hsl(var(--terminal-red)); }
+  .text-terminal-yellow { color: hsl(var(--terminal-yellow)); }
+  .text-terminal-blue { color: hsl(var(--terminal-blue)); }
+  
+  /* LI.FI Brand gradients */
+  .bg-lifi-gradient {
+    background: linear-gradient(135deg, hsl(var(--lifi-primary)), hsl(var(--lifi-secondary)));
+  }
+  
+  .bg-lifi-gradient-subtle {
+    background: linear-gradient(135deg, hsl(var(--lifi-primary) / 0.1), hsl(var(--lifi-secondary) / 0.1));
+  }
+  
+  .text-lifi-gradient {
+    background: linear-gradient(135deg, hsl(var(--lifi-primary)), hsl(var(--lifi-secondary)));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  
+  /* Network status indicators */
+  .status-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    display: inline-block;
+  }
+  
+  .status-healthy { 
+    background: hsl(var(--terminal-green));
+    box-shadow: 0 0 8px hsl(var(--terminal-green) / 0.5);
+  }
+  
+  .status-warning { 
+    background: hsl(var(--terminal-yellow));
+    box-shadow: 0 0 8px hsl(var(--terminal-yellow) / 0.5);
+  }
+  
+  .status-error { 
+    background: hsl(var(--terminal-red));
+    box-shadow: 0 0 8px hsl(var(--terminal-red) / 0.5);
+  }
+}
+
+@layer base {
+  :root {
+    /* LI.FI Brand Colors */
+    --lifi-primary: 0 64% 70%; /* #FF6B6B */
+    --lifi-secondary: 172 60% 56%; /* #4ECDC4 */
+    --lifi-accent: 199 68% 55%; /* #45B7D1 */
+    --lifi-background: 215 15% 7%; /* #0D1117 */
+    --lifi-surface: 217 17% 12%; /* #1A1E24 */
+    
+    /* Light theme */
+    --background: 0 0% 98%;
+    --foreground: 215 15% 7%;
+    --card: 0 0% 100%;
+    --card-foreground: 215 15% 7%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 215 15% 7%;
+    --primary: var(--lifi-primary);
+    --primary-foreground: 0 0% 100%;
+    --secondary: var(--lifi-secondary);
+    --secondary-foreground: 0 0% 100%;
+    --muted: 220 14% 96%;
+    --muted-foreground: 220 9% 46%;
+    --accent: var(--lifi-accent);
+    --accent-foreground: 0 0% 100%;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 220 13% 91%;
+    --input: 220 13% 91%;
+    --ring: var(--lifi-primary);
+    --radius: 0.75rem;
+    
+    /* Terminal colors */
+    --terminal-bg: 220 13% 5%;
+    --terminal-fg: 0 0% 85%;
+    --terminal-green: 120 100% 50%;
+    --terminal-red: 0 100% 67%;
+    --terminal-yellow: 60 100% 50%;
+    --terminal-blue: 199 68% 55%;
+  }
+
+  .dark {
+    /* Dark theme with LI.FI branding */
+    --background: var(--lifi-background);
+    --foreground: 0 0% 98%;
+    --card: var(--lifi-surface);
+    --card-foreground: 0 0% 98%;
+    --popover: var(--lifi-surface);
+    --popover-foreground: 0 0% 98%;
+    --primary: var(--lifi-primary);
+    --primary-foreground: 0 0% 100%;
+    --secondary: var(--lifi-secondary);
+    --secondary-foreground: 0 0% 100%;
+    --muted: 217 17% 17%;
+    --muted-foreground: 215 20% 65%;
+    --accent: var(--lifi-accent);
+    --accent-foreground: 0 0% 100%;
+    --destructive: 0 63% 31%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 217 17% 17%;
+    --input: 217 17% 17%;
+    --ring: var(--lifi-primary);
+    
+    /* Enhanced terminal colors for dark mode */
+    --terminal-bg: 220 13% 3%;
+    --terminal-fg: 0 0% 90%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
