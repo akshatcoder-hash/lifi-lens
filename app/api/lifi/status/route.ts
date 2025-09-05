@@ -2,26 +2,34 @@ import { NextRequest, NextResponse } from 'next/server'
 import axios, { AxiosError } from 'axios'
 import { BridgeType } from '@/types/lifi'
 
-const LIFI_API_KEY = process.env.LIFI_API_KEY
 const LIFI_BASE_URL = 'https://li.quest/v1'
-
-if (!LIFI_API_KEY) {
-  throw new Error('LIFI_API_KEY environment variable is required')
-}
 
 // Rate limiting tracking
 const requestCounts = new Map<string, { count: number; resetTime: number }>()
 const RATE_LIMIT_WINDOW = 60000 // 1 minute
 const RATE_LIMIT_MAX = 100 // requests per window
 
-const api = axios.create({
-  baseURL: LIFI_BASE_URL,
-  timeout: 30000,
-  headers: {
-    'Content-Type': 'application/json',
-    'x-lifi-api-key': LIFI_API_KEY
+// Create axios instance lazily to avoid build-time errors
+let api: ReturnType<typeof axios.create> | null = null
+
+function getApiClient() {
+  if (!api) {
+    const apiKey = process.env.LIFI_API_KEY
+    if (!apiKey) {
+      throw new Error('LIFI_API_KEY environment variable is required')
+    }
+    
+    api = axios.create({
+      baseURL: LIFI_BASE_URL,
+      timeout: 30000,
+      headers: {
+        'Content-Type': 'application/json',
+        'x-lifi-api-key': apiKey
+      }
+    })
   }
-})
+  return api
+}
 
 // Valid bridge types for validation
 const validBridges: BridgeType[] = [
@@ -246,7 +254,7 @@ export async function GET(request: NextRequest) {
     if (bridge) params.bridge = bridge
 
     // Make API request
-    const response = await api.get('/status', { params })
+    const response = await getApiClient().get('/status', { params })
     const duration = Date.now() - startTime
 
     // Log successful requests for monitoring
