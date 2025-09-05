@@ -61,10 +61,10 @@ class DefiLlamaClient {
         txs7d: parseInt(bridge.lastWeekTxs || bridge.txs7d || 0),
         txs30d: parseInt(bridge.lastMonthTxs || bridge.txs30d || 0),
         chains: Array.isArray(bridge.chains) ? bridge.chains : []
-      })).filter(bridge => bridge.volume24h > 0 || bridge.txs24h > 0) || []
+      })).filter((bridge: BridgeData) => bridge.volume24h > 0 || bridge.txs24h > 0) || []
 
-      const totalVolume24h = bridges.reduce((sum, bridge) => sum + bridge.volume24h, 0)
-      const totalTxs24h = bridges.reduce((sum, bridge) => sum + bridge.txs24h, 0)
+      const totalVolume24h = bridges.reduce((sum: number, bridge: BridgeData) => sum + bridge.volume24h, 0)
+      const totalTxs24h = bridges.reduce((sum: number, bridge: BridgeData) => sum + bridge.txs24h, 0)
 
       return {
         bridges,
