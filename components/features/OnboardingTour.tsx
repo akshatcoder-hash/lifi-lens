@@ -21,7 +21,7 @@ const tourSteps: Step[] = [
         </div>
         <p>
           Your professional debugging tool for LI.FI cross-chain transactions.
-          Let's take a quick tour to get you started.
+          Let&apos;s take a quick tour to get you started.
         </p>
         <div className="text-sm text-gray-600 dark:text-gray-400">
           This tour will take about 2 minutes
@@ -38,7 +38,7 @@ const tourSteps: Step[] = [
         <h3 className="text-lg font-semibold">Start with a Transaction Hash</h3>
         <p>
           Paste any LI.FI transaction hash here to begin analysis.
-          We'll fetch comprehensive data about the transaction's journey across chains.
+          We&apos;ll fetch comprehensive data about the transaction&apos;s journey across chains.
         </p>
         <div className="p-3 bg-blue-50 dark:bg-blue-900/20 rounded-lg text-sm">
           <strong>Pro tip:</strong> You can also use Ctrl/Cmd + V to paste directly!
@@ -107,7 +107,7 @@ const tourSteps: Step[] = [
     content: (
       <div className="space-y-4 text-center">
         <div className="text-6xl">🚀</div>
-        <h3 className="text-xl font-semibold">You're Ready to Go!</h3>
+        <h3 className="text-xl font-semibold">You&apos;re Ready to Go!</h3>
         <p>
           You now know the basics of LiFi Lens. Start by pasting a transaction hash
           and exploring the detailed analysis we provide.

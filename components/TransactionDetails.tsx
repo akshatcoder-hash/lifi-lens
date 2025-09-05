@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useCallback } from 'react'
 import { TransactionStatus } from '@/types/lifi'
 import { getTransactionStatus, ParsedStatusResponse } from '@/lib/api'
 import { cn } from '@/lib/utils'
@@ -30,7 +30,7 @@ export function TransactionDetails({ txHash }: TransactionDetailsProps) {
   const [error, setError] = useState<Error | null>(null)
   const [isRefreshing, setIsRefreshing] = useState(false)
 
-  const fetchStatus = async () => {
+  const fetchStatus = useCallback(async () => {
     try {
       setError(null)
       const data = await getTransactionStatus({ txHash })
@@ -41,12 +41,12 @@ export function TransactionDetails({ txHash }: TransactionDetailsProps) {
       setLoading(false)
       setIsRefreshing(false)
     }
-  }
+  }, [txHash])
 
   useEffect(() => {
     setLoading(true)
     fetchStatus()
-  }, [txHash])
+  }, [txHash, fetchStatus])
 
   const handleRefresh = () => {
     setIsRefreshing(true)
